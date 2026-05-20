@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I CLOUDS | Join Us</title>
+    <!-- Sophisticated Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #000000;
+            --bg-input: #111111;
+            --sage-accent: #B8C0A0; /* Architectural Sage Green */
+            --text-dim: #888888;
+            --border-color: #222222;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #7D8271; /* Matches the Admin Frame */
+            padding: 20px;
+        }
+
+        /* MAIN SPLIT CONTAINER */
+        .main-card {
+            background: var(--bg-deep);
+            width: 100%;
+            max-width: 1000px;
+            height: 650px;
+            display: flex;
+            flex-direction: row-reverse; /* Flips image to right side for variety */
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        /* SIDE IMAGE */
+        .visual-side {
+            flex: 1;
+            background: url("/image/mainapple.jpg") center/cover no-repeat;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 50px;
+        }
+
+        .visual-side::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 5%, transparent 50%);
+        }
+
+        .visual-text {
+            position: relative;
+            color: white;
+            z-index: 2;
+        }
+
+        .visual-text h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        /* FORM SECTION */
+        .form-side {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-side h2 {
+            color: white;
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        .input-label {
+            display: block;
+            color: #eeeeee;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .field-wrap {
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--sage-accent);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--sage-accent);
+            border: none;
+            border-radius: 8px;
+            color: #2D331D;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            display: block;
+        }
+
+        .login-link span { color: var(--sage-accent); }
+
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+            .visual-side { display: none; }
+            .main-card { max-width: 450px; height: auto; }
+            .form-side { padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    
+    <!-- Image Side -->
+    <div class="visual-side">
+        <div class="visual-text">
+            <h1>Start your journey.</h1>
+            <p>Access our curated collection of technology and design.</p>
+        </div>
+    </div>
+
+    <!-- Form Side -->
+    <div class="form-side">
+        <h2>Create account</h2>
+        <p class="subtitle">Join a community of visionaries and unlock premium resources.</p>
+
+        <form action="/usersignup" method="POST">
+            
+            <div class="field-wrap">
+                <label class="input-label">Username</label>
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="field-wrap">
+                <label class="input-label">Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="field-wrap">
+                <label class="input-label">Confirm password</label>
+                <input type="password" name="confirmPassword" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit">Create account</button>
+        </form>
+
+        <a href="/userlogin" class="login-link">Already have an account? <span>Sign In</span></a>
+    </div>
+
+</div>
+
+</body>
+</html>

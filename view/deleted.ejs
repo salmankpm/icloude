@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Clouds | Archived Products</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary-red: #ff4d4d;
+            --text-dark: #222;
+            --text-muted: #888;
+            --bg-light: #f9f9f9;
+            --border-color: #ebebeb;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: var(--text-dark);
+        }
+
+        /* TOP NAVIGATION */
+        .top-nav {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            margin: 0 10px;
+        }
+        .nav-link.active {
+        font-weight: 700 !important;
+        color: #000 !important;
+        border-bottom: 2px solid #ff4d4d; /* Matches your red theme accent */
+    }
+
+        /* BREADCRUMB */
+        .breadcrumb-section {
+            background: var(--bg-light);
+            padding: 20px 0;
+            margin-bottom: 40px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* PRODUCT CARDS */
+        .product-card {
+            border: none;
+            margin-bottom: 40px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .img-container {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 15px;
+            position: relative;
+            /* Grayscale effect for archived items */
+            filter: grayscale(0.8);
+            transition: 0.3s;
+        }
+
+        .product-card:hover .img-container {
+            filter: grayscale(0);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 180px;
+            object-fit: contain;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .product-price {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        /* RESTORE BUTTON */
+        .btn-restore {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: #fff;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        .btn-restore:hover {
+            background: var(--text-dark);
+            color: #fff;
+        }
+
+        /* EMPTY STATE */
+        .empty-archive {
+            text-align: center;
+            padding: 100px 0;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <nav class="navbar navbar-expand-lg top-nav">
+        <div class="container">
+            <a class="navbar-brand text-black" href="/index">I CLOUDS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="/blockedusers">Users</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/restoreProdect">Archives</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="/logout" class="btn btn-outline-dark btn-sm rounded-pill px-4">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb-section">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>Home / Admin / Archives</span>
+            <span class="badge bg-dark rounded-pill"><%= prodects.length %> Items Hidden</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="fw-bold">Archived Inventory</h3>
+                <p class="text-muted small">Items here are hidden from the store. You can restore them at any time.</p>
+            </div>
+        </div>
+
+        <% if(prodects.length > 0) { %>
+            <div class="row">
+                <% for(let i=0; i < prodects.length; i++) { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="product-card">
+                            <div class="img-container shadow-sm">
+                                <img src="/image/<%= prodects[i].image %>" alt="archived product">
+                            </div>
+                            <span class="product-name"><%= prodects[i].name %></span>
+                            <div class="product-price">₹<%= prodects[i].price %></div>
+                            
+                            <button class="btn btn-restore" onclick="window.location='/revertProdect?prodectId=<%=prodects[i]._id%>'">
+                                Restore Product
+                            </button>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% } else { %>
+            <div class="empty-archive">
+                <div class="display-1 text-light mb-3">📦</div>
+                <h4>Your archive is empty</h4>
+                <p>No products are currently hidden from your store.</p>
+                <a href="/dashboard" class="btn btn-dark mt-3 rounded-pill">Back to Dashboard</a>
+            </div>
+        <% } %>
+    </div>
+
+    <footer class="mt-5 py-5 border-top">
+        <div class="container text-center text-muted small">
+            &copy; 2026 I Clouds Mobile Store - Admin Portal
+        </div>
+    </footer>
+
+</body>
+
+</html>

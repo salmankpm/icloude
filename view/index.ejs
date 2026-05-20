@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I CLOUDS | Premium Store</title>
+    <!-- Modern Font: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-alt: #F3F4F6;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --accent: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-primary); }
+
+        /* HEADER & NAV */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: white; position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-weight: 800; font-size: 22px; letter-spacing: -1px; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); margin: 0 15px; font-size: 14px; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--text-primary); }
+        
+        .account-actions { display: flex; align-items: center; gap: 15px; }
+        .account-actions button, .account-actions a { 
+            background: none; border: none; font-size: 14px; cursor: pointer; color: var(--text-primary); text-decoration: none;
+        }
+
+        /* HERO - EDITORIAL STYLE */
+        .hero-wrap {
+            position: relative; height: 500px; margin: 0 5%; border-radius: 30px; 
+            overflow: hidden; background: url("/image/mainapple.jpg") center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .hero-wrap::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.15); }
+        .hero-wrap h1 { 
+            font-size: 160px; font-weight: 800; color: white; position: relative; z-index: 2;
+            letter-spacing: -8px; line-height: 0.8; opacity: 0.95; text-transform: uppercase;
+        }
+        .hero-content { position: absolute; bottom: 40px; left: 40px; z-index: 3; color: white; }
+        .hero-content p { font-size: 18px; margin-bottom: 10px; opacity: 0.9; }
+
+        /* SEARCH BAR */
+        .search-section {
+            width: 90%; max-width: 800px; background: white; border-radius: 50px;
+            padding: 10px 10px 10px 30px; display: flex; align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin: -40px auto 60px;
+            position: relative; z-index: 10; border: 1px solid #eee;
+        }
+        .search-section input { border: none; flex: 1; outline: none; font-size: 15px; }
+        .search-section button { background: black; color: white; border: none; padding: 12px 30px; border-radius: 40px; font-weight: 600; cursor: pointer; }
+
+        /* PRODUCT GRID LAYOUT */
+        .main-container { display: grid; grid-template-columns: 240px 1fr; gap: 50px; padding: 0 5% 100px; }
+        
+        /* CATEGORY SIDEBAR */
+        .sidebar h4 { font-size: 18px; margin-bottom: 25px; font-weight: 700; }
+        .cat-list { list-style: none; }
+        .cat-item { 
+            display: flex; align-items: center; justify-content: space-between;
+            color: var(--text-secondary); text-decoration: none; 
+            margin-bottom: 18px; font-size: 14px; transition: 0.2s;
+        }
+        .cat-item:hover { color: var(--accent); transform: translateX(5px); }
+        .cat-count { 
+            background: var(--bg-alt); font-size: 10px; padding: 2px 8px; 
+            border-radius: 10px; color: var(--text-primary); font-weight: 700;
+        }
+
+        /* PRODUCT CARDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
+        .card { background: white; transition: 0.3s; }
+        
+        .img-wrapper {
+            background: var(--bg-alt); border-radius: 25px; height: 320px;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px; margin-bottom: 20px; position: relative; transition: 0.4s ease;
+        }
+        .card:hover .img-wrapper { transform: translateY(-8px); background: #ebedef; }
+        .img-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .tag { position: absolute; top: 20px; right: 20px; background: white; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: capitalize; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        .info-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .info-row h3 { font-size: 17px; font-weight: 700; }
+        .info-row .price { font-weight: 800; font-size: 17px; }
+        .rating { color: #FFB800; font-size: 12px; margin-top: 4px; }
+
+        .btn-group { display: flex; gap: 10px; }
+        .btn-add { flex: 1; padding: 12px; border-radius: 30px; border: 1px solid #ddd; background: white; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-buy { flex: 1; padding: 12px; border-radius: 30px; border: none; background: black; color: white; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-add:hover { background: #f9f9f9; border-color: #aaa; }
+        .btn-buy:hover { opacity: 0.8; }
+
+        /* FOOTER BANNER */
+        .footer-cta {
+            background: #111827; margin: 0 5% 50px; border-radius: 30px;
+            padding: 80px 60px; color: white; display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-cta h2 { font-size: 42px; font-weight: 800; line-height: 1.1; max-width: 400px; }
+        .cta-form { display: flex; gap: 10px; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50px; }
+        .cta-form input { background: transparent; border: none; padding-left: 20px; color: white; width: 250px; outline: none; }
+        .cta-form button { background: white; color: black; border: none; padding: 12px 30px; border-radius: 40px; font-weight: 700; cursor: pointer; }
+
+        /* DROPDOWN */
+        .dropdown {
+            position: absolute; right: 5%; top: 70px; background: white; border: 1px solid #eee;
+            width: 200px; display: none; flex-direction: column; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-radius: 15px; z-index: 1001;
+        }
+        .dropdown a { padding: 15px 20px; text-decoration: none; color: var(--text-primary); border-bottom: 1px solid #f5f5f5; font-size: 14px; }
+        .dropdown a:hover { background: var(--bg-alt); }
+
+        @media (max-width: 900px) {
+            .main-container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .hero-wrap h1 { font-size: 80px; letter-spacing: -4px; }
+            .footer-cta { flex-direction: column; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">I CLOUDS</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="#">Accessories</a>
+        <a href="/contact">Contact</a>
+    </div>
+    <div class="account-actions">
+        <a href="/getmaincart">🛒 Bag</a>
+        <button onclick="toggleMenu(event)">Account ▾</button>
+        <div class="dropdown" id="menu">
+            <a href="/admin/login">Admin</a>
+            <a href="/usersignup">User</a>
+            <a href="/logoutuser">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero-wrap">
+    <h1>I CLOUDS</h1>
+    <div class="hero-content">
+        <p>Give All You Need</p>
+    </div>
+</section>
+
+<div class="search-section">
+    <input type="text" placeholder="Search for products, tech, and more...">
+    <button>Search</button>
+</div>
+
+<main class="main-container">
+    <aside class="sidebar">
+        <h4>Category</h4>
+        <div class="cat-list">
+            <a href="/index" class="cat-item">
+                <span>📦 All Products</span>
+                <span class="cat-count"><%= prodects.length %></span>
+            </a>
+            
+            <!-- Dynamic Category Loop -->
+            <% 
+               
+               let categories = [...new Set(prodects.map(p => p.category))]; 
+               categories.forEach(cat => { 
+            %>
+                <a href="/index?category=<%= cat %>" class="cat-item">
+                    <span style="text-transform: capitalize;"> <%= cat %></span>
+                </a>
+            <% }) %>
+        </div>
+    </aside>
+
+    <section>
+        <div class="grid">
+            <% for(let i=0; i<prodects.length; i++){ %>
+            <div class="card">
+                <div class="img-wrapper">
+                   
+                    <span class="tag"><%= prodects[i].category %></span>
+                    <img src="/image/<%= prodects[i].image %>">
+                </div>
+                
+                <div class="info-row">
+                    <div>
+                        <h3><%= prodects[i].name %></h3>
+                        <div class="rating">★★★★★ <span style="color:#888; margin-left:5px;">5.0 (1.2k)</span></div>
+                    </div>
+                    <div class="price">₹<%= prodects[i].price %></div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-add" onclick="window.location='/add-to-cart?prodectId=<%=prodects[i]._id%>'">Add To Bag</button>
+                    <button class="btn-buy" onclick="window.location='/getmaincart'">Buy Now</button>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+<section class="footer-cta">
+    <h2>Ready to Get Our New Stuff?</h2>
+    <div class="cta-form">
+        <input type="email" placeholder="Your Email">
+        <button>Subscribe</button>
+    </div>
+</section>
+
+<script>
+    function toggleMenu(event){
+        event.stopPropagation();
+        const menu = document.getElementById("menu");
+        menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    document.addEventListener("click", function(e){
+        const menu = document.getElementById("menu");
+        if(menu) menu.style.display = "none";
+    });
+</script>
+
+</body>
+</html>
