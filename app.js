@@ -43,6 +43,7 @@ const path = require('path');
 app.set ('views', path.join(__dirname, 'view'));
 app.set("view engine", "ejs");
 
+app.get('/', (req, res) => { res.redirect('/index'); });
 app.get('/index',getindex)
 
 app.get('/admin/login', adminlogin)
