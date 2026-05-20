@@ -4,7 +4,7 @@ import { registerModel } from "../model/userschema.js"
 import { LocalStorage } from "node-localstorage"
 import bcrypt from 'bcryptjs';
 import { categoryModel } from "../model/categoryschema.js";
-var localStorage = new LocalStorage('./scratch');
+var localStorage = new LocalStorage('/tmp/scratch');
 
 export const getindex = async (req, res) => {
 

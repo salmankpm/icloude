@@ -21,7 +21,7 @@ mongoose.connect(dburl)
 
 const storage = multer.diskStorage({
      destination: function (req, file, cb) {
-          cb(null, 'public/image')
+          cb(null, '/tmp')
     },
    filename: function (req, file, cb) {
          cb(null, file.fieldname + '-' + Date.now())
@@ -39,7 +39,8 @@ app.use(express.static("public"));
 
 
 
-app.set ('views','view');
+const path = require('path');
+app.set ('views', path.join(__dirname, 'view'));
 app.set("view engine", "ejs");
 
 app.get('/index',getindex)
@@ -80,7 +81,11 @@ app.get('/deletecart',deletecart)
 app.get('/getmaincart',getmaincart)
 
 
- const PORT = process.env.PORT 
+ const PORT = process.env.PORT || 3000;
 
- app.listen(PORT,console.log(
-  'Server started on port' +PORT));
+ if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT,console.log(
+   'Server started on port ' + PORT));
+ }
+
+ module.exports = app;

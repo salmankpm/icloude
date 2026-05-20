@@ -1,5 +1,5 @@
 import {LocalStorage} from "node-localstorage"
-var localStorage = new LocalStorage('./scratch'); 
+var localStorage = new LocalStorage('/tmp/scratch'); 
 
 
 export function isLoggined (req,res,next){
